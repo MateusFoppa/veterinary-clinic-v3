@@ -1,5 +1,4 @@
-import petRepository from '../../Pet/pet.repository';
-import tutorRepository from '../repositories/tutor.repository';
+import { TutorRepository } from '../repositories/tutor.repository';
 import createTokenTutor from '../utils/createTokenTutor';
 
 import { BadRequestError } from '../../errors';
@@ -8,12 +7,10 @@ import { createJWT } from '../utils/jwt';
 import { InterfaceTutor } from '../models/Tutor';
 
 export class TutorService {
-  tutorRepository = tutorRepository;
-  petRepository = petRepository;
 
-  async createTutor(tutorData: InterfaceTutor): Promise<object> {
+  static async createTutor(tutorData: InterfaceTutor): Promise<object> {
 
-    const createdTutor = await this.tutorRepository.create(
+    const createdTutor = await TutorRepository.create(
       tutorData
     );
     const payloadTutor = createTokenTutor(createdTutor);
@@ -21,35 +18,35 @@ export class TutorService {
 
     return { tutor: payloadTutor, token };
   }
-  async getTutors(): Promise<InterfaceTutor[]> {
-    const tutors = await this.tutorRepository.findAll();
+  static async getTutors(): Promise<InterfaceTutor[]> {
+    const tutors = await TutorRepository.findAll();
     return tutors;
   }
 
-  async updateTutor(request: Request): Promise<InterfaceTutor> {
+  static async updateTutor(request: Request): Promise<InterfaceTutor> {
     const { tutorId } = request.params;
     const { body } = request;
 
-    const tutor = await this.tutorRepository.findById(tutorId);
+    const tutor = await TutorRepository.findById(tutorId);
     if (!tutor) {
       throw new BadRequestError('Tutor not exist')
     }
-    const updatedTutor = await this.tutorRepository.update(
+    const updatedTutor = await TutorRepository.update(
       tutorId,
       body
     );
     return updatedTutor;
   }
 
-  async deleteTutor(request: Request): Promise<void> {
+  static async deleteTutor(request: Request): Promise<void> {
     const tutorId = request.params.tutorId;
-    const tutor = await this.tutorRepository.findById(tutorId);
+    const tutor = await TutorRepository.findById(tutorId);
     if (!tutor) {
       throw new BadRequestError('Tutor not exist')
     }
     if (tutor.pets.length > 0) {
       throw new BadRequestError('Tutors cannot be deleted as they have associated pets');
     }
-    await this.tutorRepository.delete(tutorId);
+    await TutorRepository.delete(tutorId);
   }
 }

@@ -1,4 +1,4 @@
-import TutorRepository from '../repositories/tutor.repository';
+import { TutorRepository } from '../repositories/tutor.repository';
 import createTokenTutor from '../../Tutor/utils/createTokenTutor';
 
 import { BadRequestError, UnauthenticatedError } from '../../errors';
@@ -6,9 +6,8 @@ import { createJWT } from '../../Tutor/utils/jwt';
 import { InterfaceTutor } from '../models/Tutor';
 
 export class AuthService {
-  tutorRepository = TutorRepository;
 
-  async login(tutorData: InterfaceTutor): Promise<object> {
+  static async login(tutorData: InterfaceTutor): Promise<object> {
 
     const { email, password } = tutorData;
 
@@ -16,7 +15,7 @@ export class AuthService {
       throw new BadRequestError('Please provide email and password');
     }
 
-    const tutor = await this.tutorRepository.findOne(email);
+    const tutor = await TutorRepository.findOne(email);
     if (!tutor) {
       throw new UnauthenticatedError('Invalid Credentials');
     }

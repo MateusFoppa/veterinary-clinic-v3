@@ -7,15 +7,13 @@ import { createdTutor } from '../validation/create.tutor';
 
 const tutorRouter = express.Router();
 
-const tutorController = new TutorController;
-
 tutorRouter
   .route('/')
-  .get(authentication, tutorController.getTutors)
-  .post(validator(createdTutor.required()), tutorController.createTutor);
+  .get(authentication, TutorController.getTutors)
+  .post(validator(createdTutor.required()), TutorController.createTutor);
 tutorRouter
   .route('/:tutorId')
-  .put(authentication, validator(createdTutor), tutorController.updateTutor)
-  .delete(authentication, tutorController.deleteTutor);
+  .put(authentication, validator(createdTutor), TutorController.updateTutor)
+  .delete(authentication, TutorController.deleteTutor);
 
 export default tutorRouter;

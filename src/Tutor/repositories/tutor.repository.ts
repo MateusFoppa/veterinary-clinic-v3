@@ -1,8 +1,8 @@
 import { BadRequestError } from '../../errors';
 import { InterfaceTutor, Tutor } from '../models/Tutor';
 
-class TutorRepository {
-  async create(
+export class TutorRepository {
+  static async create(
     tutorData: InterfaceTutor
   ): Promise<InterfaceTutor> {
 
@@ -14,7 +14,7 @@ class TutorRepository {
     return newTutor;
   }
 
-  async findAll(): Promise<InterfaceTutor[]> {
+  static async findAll(): Promise<InterfaceTutor[]> {
     const tutors = await Tutor.find().populate({
       path: 'pets',
       select: '-tutor'
@@ -22,21 +22,21 @@ class TutorRepository {
     return tutors;
   }
 
-  async findOne(email: any): Promise<InterfaceTutor> {
+  static async findOne(email: any): Promise<InterfaceTutor> {
 
     const tutor = await Tutor.findOne({ email });
 
     return tutor;
   }
 
-  async findById(tutorId: any): Promise<InterfaceTutor> {
+  static async findById(tutorId: any): Promise<InterfaceTutor> {
 
     const tutor = await Tutor.findById({ _id: tutorId });
 
     return tutor;
   }
 
-  async update(
+  static async update(
     tutorId: string,
     updatedTutorData: any
   ): Promise<InterfaceTutor> {
@@ -48,9 +48,8 @@ class TutorRepository {
     return updatedTutor;
   }
 
-  async delete(tutorId: string): Promise<void> {
+  static async delete(tutorId: string): Promise<void> {
     await Tutor.findByIdAndDelete(tutorId);
   }
 }
 
-export default new TutorRepository();

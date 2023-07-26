@@ -1,11 +1,13 @@
+import { InterfaceTutor } from 'src/Tutor/models/Tutor';
 import { InterfacePet, Pet } from './Pet';
 
 export class PetRepository {
   static async create(
-    body: InterfacePet
-  ): Promise<InterfacePet> {
-
-    const newPet = await Pet.create(body);
+    body: any
+  ): Promise<any> {
+    const newPet = await Pet.create(
+      body
+    );
     return newPet;
   }
 

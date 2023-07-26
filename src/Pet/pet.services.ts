@@ -1,4 +1,4 @@
-import TutorRepository from '../Tutor/repositories/tutor.repository';
+import { TutorRepository } from '../Tutor/repositories/tutor.repository';
 import { PetRepository } from './pet.repository';
 
 import { BadRequestError } from '../errors';
@@ -18,6 +18,8 @@ export class PetService {
     if (await PetRepository.findOne(body.name, params.tutorId)) {
       throw new BadRequestError('Pet name already registered');
     }
+
+    body.tutor = tutorId;
 
     const createdPet = await PetRepository.create(
       body

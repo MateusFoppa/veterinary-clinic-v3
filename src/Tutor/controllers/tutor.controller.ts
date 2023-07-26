@@ -1,34 +1,25 @@
 import { Request, Response } from 'express';
 import { TutorService } from '../services/tutor.services';
-import { InterfaceTutor } from '../models/Tutor';
-import { StatusCodes } from 'http-status-codes';
 
 export class TutorController {
-  async createTutor(request: Request, response: Response): Promise<void> {
+  static async createTutor(request: Request, response: Response): Promise<void> {
     const { body } = request;
-
-    const tutorService = new TutorService();
-    const result = await tutorService.createTutor(body);
+    const result = await TutorService.createTutor(body);
     response.status(200).json(result);
   }
 
-  async getTutors(request: Request, response: Response): Promise<void> {
-    const tutorService = new TutorService();
-    const result = await tutorService.getTutors();
+  static async getTutors(request: Request, response: Response): Promise<void> {
+    const result = await TutorService.getTutors();
     response.status(200).json(result);
   }
 
-  async updateTutor(request: Request, response: Response): Promise<void> {
-
-    const tutorService = new TutorService();
-    const result = await tutorService.updateTutor(request);
+  static async updateTutor(request: Request, response: Response): Promise<void> {
+    const result = await TutorService.updateTutor(request);
     response.status(200).json(result);
   }
 
-  async deleteTutor(request: Request, response: Response): Promise<void> {
-
-    const tutorService = new TutorService();
-    const result = await tutorService.deleteTutor(request);
+  static async deleteTutor(request: Request, response: Response): Promise<void> {
+    const result = await TutorService.deleteTutor(request);
     response.status(204).json(result);
   }
 }

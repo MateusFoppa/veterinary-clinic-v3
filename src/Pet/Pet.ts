@@ -5,7 +5,7 @@ export interface InterfacePet {
   name: string;
   species: string;
   carry: string;
-  weight: number;
+  weight: string;
   date_of_birth: string;
   tutor: Schema.Types.ObjectId;
 }
@@ -14,7 +14,7 @@ const PetSchema = new Schema<InterfacePet>({
   name: { type: String, required: true },
   species: { type: String, required: true },
   carry: { type: String, required: true },
-  weight: { type: Number, required: true },
+  weight: { type: String, required: true },
   date_of_birth: { type: String, required: true },
   tutor: { type: Schema.Types.ObjectId, required: true },
 });
