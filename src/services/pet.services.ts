@@ -1,9 +1,9 @@
-import { TutorRepository } from '../Tutor/repositories/tutor.repository';
-import { PetRepository } from './pet.repository';
+import { TutorRepository } from '../repositories/tutor.repository';
+import { PetRepository } from '../repositories/pet.repository';
 
 import { BadRequestError } from '../errors';
 import { Request } from 'express';
-import { InterfacePet } from './Pet';
+import { InterfacePet } from '../models/Pet';
 
 export class PetService {
 

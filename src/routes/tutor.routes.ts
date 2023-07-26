@@ -1,4 +1,4 @@
-import { TutorController } from '../Tutor/controllers/tutor.controller';
+import { TutorController } from '../controllers/tutor.controller';
 import express from 'express';
 import authentication from '../middleware/authentication';
 import validator from '../middleware/validator';

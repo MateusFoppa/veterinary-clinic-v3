@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { PetService } from './pet.services';
+import { PetService } from '../services/pet.services';
 
 export class PetController {
   static async createPet(request: Request, response: Response): Promise<void> {

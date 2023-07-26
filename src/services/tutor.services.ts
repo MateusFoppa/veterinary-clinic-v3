@@ -1,7 +1,7 @@
 import { TutorRepository } from '../repositories/tutor.repository';
 import createTokenTutor from '../utils/createTokenTutor';
 
-import { BadRequestError } from '../../errors';
+import { BadRequestError } from '../errors';
 import { Request } from 'express-serve-static-core';
 import { createJWT } from '../utils/jwt';
 import { InterfaceTutor } from '../models/Tutor';

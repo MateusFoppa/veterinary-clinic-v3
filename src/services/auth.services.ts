@@ -1,8 +1,8 @@
 import { TutorRepository } from '../repositories/tutor.repository';
-import createTokenTutor from '../../Tutor/utils/createTokenTutor';
+import createTokenTutor from '../utils/createTokenTutor';
 
-import { BadRequestError, UnauthenticatedError } from '../../errors';
-import { createJWT } from '../../Tutor/utils/jwt';
+import { BadRequestError, UnauthenticatedError } from '../errors';
+import { createJWT } from '../utils/jwt';
 import { InterfaceTutor } from '../models/Tutor';
 
 export class AuthService {

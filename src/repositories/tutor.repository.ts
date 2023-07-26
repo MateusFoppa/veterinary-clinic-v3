@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../errors';
+import { BadRequestError } from '../errors';
 import { InterfaceTutor, Tutor } from '../models/Tutor';
 
 export class TutorRepository {

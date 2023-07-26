@@ -1,4 +1,4 @@
-import { PetController } from '../Pet/pet.controller';
+import { PetController } from '../controllers/pet.controller';
 import express from 'express';
 import authentication from '../middleware/authentication';
 

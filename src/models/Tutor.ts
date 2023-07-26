@@ -6,7 +6,7 @@ export interface InterfaceTutor {
   password: string;
   phone: string;
   email: string;
-  date_of_birth: String;
+  date_of_birth: string;
   zip_code: string;
   pets: Schema.Types.ObjectId[];
   comparePassword(password: string);

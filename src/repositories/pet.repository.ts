@@ -1,4 +1,4 @@
-import { InterfacePet, Pet } from './Pet';
+import { InterfacePet, Pet } from '../models/Pet';
 
 export class PetRepository {
   static async create(
