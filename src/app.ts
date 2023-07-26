@@ -3,7 +3,6 @@ import 'express-async-errors';
 
 import dotenv from 'dotenv';
 
-// Import routes Tutors
 import tutorRouter from './routes/tutor.routes';
 import authRouter from './routes/auth.routes';
 import petRouter from './routes/pet.routes';
@@ -11,13 +10,11 @@ import petRouter from './routes/pet.routes';
 import errorHandlerMiddleware from './middleware/error-handler';
 import notFound from './middleware/not-foud';
 
-// rest of the packages
 import cors from 'cors';
 
-//Swagger
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
-const path = require('path');
+import path from 'path';
 const swaggerDocument = YAML.load(path.resolve(__dirname, 'swagger.yaml'));
 
 dotenv.config();
