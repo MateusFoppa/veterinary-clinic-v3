@@ -35,14 +35,14 @@ class TutorRepository {
     return tutors;
   }
 
-  async findOne(email: any) {
+  async findOne(email: any): Promise<InterfaceTutor> {
 
     const tutor = await Tutor.findOne({ email });
 
     return tutor;
   }
 
-  async findById(tutorId: any) {
+  async findById(tutorId: any): Promise<InterfaceTutor> {
 
     const tutor = await Tutor.findById({ _id: tutorId });
 
