@@ -1,29 +1,26 @@
-import { TutorRepository } from '../repositories/tutor.repository';
-import { PetRepository } from '../repositories/pet.repository';
+import { TutorRepository } from "../repositories/tutor.repository";
+import { PetRepository } from "../repositories/pet.repository";
 
-import { BadRequestError } from '../errors';
-import { Request } from 'express';
-import { InterfacePet } from '../models/Pet';
+import { BadRequestError } from "../errors";
+import { Request } from "express";
+import { InterfacePet } from "../models/Pet";
 
 export class PetService {
-
   static async createPet(request: Request): Promise<InterfacePet> {
     const { body, params } = request;
 
     const { tutorId } = params;
     const tutor = await TutorRepository.findById(tutorId);
     if (!tutor) {
-      throw new BadRequestError('Tutor not exist')
+      throw new BadRequestError("Tutor not exist");
     }
     if (await PetRepository.findOne(body.name, params.tutorId)) {
-      throw new BadRequestError('Pet name already registered');
+      throw new BadRequestError("Pet name already registered");
     }
 
     body.tutor = tutorId;
 
-    const createdPet = await PetRepository.create(
-      body
-    );
+    const createdPet = await PetRepository.create(body);
     const { _id } = createdPet;
 
     tutor.pets.push(_id);
@@ -39,19 +36,16 @@ export class PetService {
 
     const tutor = await TutorRepository.findById(tutorId);
     if (!tutor) {
-      throw new BadRequestError('Tutor not exist')
+      throw new BadRequestError("Tutor not exist");
     }
     const pet = await PetRepository.findById(petId);
     if (!pet) {
-      throw new BadRequestError('Pet not exist')
+      throw new BadRequestError("Pet not exist");
     }
     if (!tutor.pets.find((petsId) => petsId.toString() === petId)) {
-      throw new BadRequestError('Pet not associated with this tutor');
+      throw new BadRequestError("Pet not associated with this tutor");
     }
-    const updatedPet = await PetRepository.update(
-      petId,
-      body,
-    );
+    const updatedPet = await PetRepository.update(petId, body);
     return updatedPet;
   }
 
@@ -60,14 +54,14 @@ export class PetService {
 
     const tutor = await TutorRepository.findById(tutorId);
     if (!tutor) {
-      throw new BadRequestError('Tutor not exist')
+      throw new BadRequestError("Tutor not exist");
     }
     const pet = await PetRepository.findById(petId);
     if (!pet) {
-      throw new BadRequestError('Pet not exist')
+      throw new BadRequestError("Pet not exist");
     }
     if (!tutor.pets.find((petsId) => petsId.toString() === petId)) {
-      throw new BadRequestError('Pet not associated with this tutor');
+      throw new BadRequestError("Pet not associated with this tutor");
     }
     await PetRepository.delete(petId);
     tutor.pets = tutor.pets.filter((pets) => pets.toString() !== petId);
