@@ -1,0 +1,346 @@
+openapi: 3.0.0
+info:
+  title: Veterinary-Clinic
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://localhost:5000
+  variables: {}
+paths:
+  /tutor:
+    get:
+      tags:
+      - Tutor
+      summary: GetAll
+      operationId: GetAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - Tutor
+      summary: CreateTutor
+      operationId: CreateTutor
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateTutorRequest'
+              - example:
+                  name: Pedro
+                  password: '123456'
+                  phone: '6516516516'
+                  email: pedro@gmail.com
+                  date_of_birth: 1993-12-12 10:10
+                  zip_code: 6516a51
+            example:
+              name: Pedro
+              password: '123456'
+              phone: '6516516516'
+              email: pedro@gmail.com
+              date_of_birth: 1993-12-12 10:10
+              zip_code: 6516a51
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /tutor/{tutorId}:
+    put:
+      tags:
+      - Tutor
+      summary: UpdateTutor
+      operationId: UpdateTutor
+      parameters:
+      - name: tutorId
+        in: path
+        schema:
+          type: string
+        required: true
+        description: The tutor ID.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateTutorRequest'
+              - example:
+                  name: Mateus
+                  email: mateus@gmail.com
+            example:
+              name: Mateus
+              email: mateus@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Tutor
+      summary: DeleteTutor
+      operationId: DeleteTutor
+      parameters:
+      - name: tutorId
+        in: path
+        schema:
+          type: string
+        required: true
+        description: The tutor ID.
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /auth:
+    post:
+      tags:
+      - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  email: mateus@gmail.com
+                  password: '123456'
+            example:
+              email: mateus@gmail.com
+              password: '123456'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /pet/{tutorId}:
+    post:
+      tags:
+      - Pet
+      summary: Crete Pet
+      operationId: CretePet
+      parameters: 
+      - name: tutorId
+        in: path
+        schema:
+          type: string
+        required: true
+        description: The tutor ID.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CretePetRequest'
+              - example:
+                  name: Chico
+                  species: dog
+                  carry: gg
+                  weight: '5'
+                  date_of_birth: 1993-12-12 10:10
+            example:
+              name: Chico
+              species: dog
+              carry: gg
+              weight: '5'
+              date_of_birth: 1993-12-12 10:10
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /pet/{petId}/tutor/{tutorId}:
+    put:
+      tags:
+      - Pet
+      summary: Update Pet
+      operationId: UpdatePet
+      parameters:
+      - name: petId
+        in: path
+        schema:
+          type: string
+        required: true
+        description: The pet ID.
+      - name: tutorId
+        in: path
+        schema:
+          type: string
+        required: true
+        description: The tutor ID.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdatePetRequest'
+              - example:
+                  name: Spike
+            example:
+              name: Spike
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+
+    delete:
+      tags:
+      - Pet
+      summary: Delete Pet
+      operationId: DeletePet
+      parameters:
+      - name: petId
+        in: path
+        schema:
+          type: string
+        required: true
+        description: The pet ID.
+      - name: tutorId
+        in: path
+        schema:
+          type: string
+        required: true
+        description: The tutor ID.
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    CreateTutorRequest:
+      title: CreateTutorRequest
+      required:
+      - name
+      - password
+      - phone
+      - email
+      - date_of_birth
+      - zip_code
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        date_of_birth:
+          type: string
+        zip_code:
+          type: string
+      example:
+        name: Pedro
+        password: '123456'
+        phone: '6516516516'
+        email: pedro@gmail.com
+        date_of_birth: 1993-12-12 10:10
+        zip_code: 6516a51
+    UpdateTutorRequest:
+      title: UpdateTutorRequest
+      required:
+      - name
+      - email
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+      example:
+        name: Mateus
+        email: mateus@gmail.com
+    loginrequest:
+      title: loginrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: mateus@gmail.com
+        password: '123456'
+    CretePetRequest:
+      title: CretePetRequest
+      required:
+      - name
+      - species
+      - carry
+      - weight
+      - date_of_birth
+      type: object
+      properties:
+        name:
+          type: string
+        species:
+          type: string
+        carry:
+          type: string
+        weight:
+          type: string
+        date_of_birth:
+          type: string
+      example:
+        name: Chico
+        species: dog
+        carry: gg
+        weight: '5'
+        date_of_birth: 1993-12-12 10:10
+    UpdatePetRequest:
+      title: UpdatePetRequest
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: Spike
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Tutor
+- name: Auth
+- name: Pet

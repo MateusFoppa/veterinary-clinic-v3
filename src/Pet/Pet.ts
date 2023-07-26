@@ -1,0 +1,22 @@
+import mongoose, { Schema, Document, ObjectId } from 'mongoose';
+
+export interface InterfacePet {
+  _id: ObjectId;
+  name: string;
+  species: string;
+  carry: string;
+  weight: number;
+  date_of_birth: string;
+  tutor: Schema.Types.ObjectId;
+}
+
+const PetSchema = new Schema<InterfacePet>({
+  name: { type: String, required: true },
+  species: { type: String, required: true },
+  carry: { type: String, required: true },
+  weight: { type: Number, required: true },
+  date_of_birth: { type: String, required: true },
+  tutor: { type: Schema.Types.ObjectId, required: true },
+});
+
+export const Pet = mongoose.model<InterfacePet>('Pet', PetSchema);
