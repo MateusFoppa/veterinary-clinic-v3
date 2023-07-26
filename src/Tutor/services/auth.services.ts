@@ -3,11 +3,12 @@ import createTokenTutor from '../../Tutor/utils/createTokenTutor';
 
 import { BadRequestError, UnauthenticatedError } from '../../errors';
 import { createJWT } from '../../Tutor/utils/jwt';
+import { InterfaceTutor } from '../models/Tutor';
 
 export class AuthService {
   tutorRepository = TutorRepository;
 
-  async login(tutorData: any): Promise<object> {
+  async login(tutorData: InterfaceTutor): Promise<object> {
 
     const { email, password } = tutorData;
 

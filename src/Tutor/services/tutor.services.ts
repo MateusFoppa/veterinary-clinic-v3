@@ -11,15 +11,10 @@ export class TutorService {
   tutorRepository = tutorRepository;
   petRepository = petRepository;
 
-  async createTutor(tutorData: any): Promise<object> {
-    const { name, password, phone, email, date_of_birth, zip_code } = tutorData;
+  async createTutor(tutorData: InterfaceTutor): Promise<object> {
+
     const createdTutor = await this.tutorRepository.create(
-      name,
-      password,
-      phone,
-      email,
-      date_of_birth,
-      zip_code
+      tutorData
     );
     const payloadTutor = createTokenTutor(createdTutor);
     const token = createJWT(payloadTutor);
@@ -33,7 +28,7 @@ export class TutorService {
 
   async updateTutor(request: Request): Promise<InterfaceTutor> {
     const { tutorId } = request.params;
-    const { updatedTutorData } = request.body;
+    const { body } = request;
 
     const tutor = await this.tutorRepository.findById(tutorId);
     if (!tutor) {
@@ -41,7 +36,7 @@ export class TutorService {
     }
     const updatedTutor = await this.tutorRepository.update(
       tutorId,
-      updatedTutorData
+      body
     );
     return updatedTutor;
   }

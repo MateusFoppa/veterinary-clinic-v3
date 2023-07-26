@@ -3,27 +3,14 @@ import { InterfaceTutor, Tutor } from '../models/Tutor';
 
 class TutorRepository {
   async create(
-    name: string,
-    password: string,
-    phone: string,
-    email: string,
-    date_of_birth: String,
-    zip_code: string
+    tutorData: InterfaceTutor
   ): Promise<InterfaceTutor> {
-    const tutor = {
-      name,
-      password,
-      phone,
-      email,
-      date_of_birth,
-      zip_code,
-    };
 
-    if (await this.findOne(email)) {
+    if (await this.findOne(tutorData.email)) {
       throw new BadRequestError('Email already registered')
     }
 
-    const newTutor = await Tutor.create(tutor);
+    const newTutor = await Tutor.create(tutorData);
     return newTutor;
   }
 
