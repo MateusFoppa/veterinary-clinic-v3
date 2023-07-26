@@ -7,7 +7,7 @@ import { createJWT } from '../../Tutor/utils/jwt';
 export class AuthService {
   tutorRepository = TutorRepository;
 
-  async login(tutorData: any) {
+  async login(tutorData: any): Promise<object> {
 
     const { email, password } = tutorData;
 
