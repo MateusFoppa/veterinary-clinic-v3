@@ -9,7 +9,8 @@ export interface InterfaceTutor {
   date_of_birth: String;
   zip_code: string;
   pets: Schema.Types.ObjectId[];
-  comparePassword(password: any);
+  comparePassword(password: string);
+  save();
 }
 
 const TutorSchema = new Schema<InterfaceTutor>({
@@ -48,7 +49,7 @@ TutorSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-TutorSchema.methods.comparePassword = async function (canditatePassword) {
+TutorSchema.methods.comparePassword = async function (canditatePassword: string) {
   const isMatch = await bcrypt.compare(canditatePassword, this.password);
   return isMatch;
 };

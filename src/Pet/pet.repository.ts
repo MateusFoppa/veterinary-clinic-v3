@@ -1,25 +1,11 @@
 import { InterfacePet, Pet } from './Pet';
-import { ObjectId } from 'mongoose';
 
 class PetRepository {
   async create(
-    name: string,
-    species: string,
-    carry: string,
-    weight: number,
-    date_of_birth: string,
-    tutor: ObjectId
-  ) {
-    const pet = {
-      name,
-      species,
-      carry,
-      weight,
-      date_of_birth,
-      tutor
-    };
+    body: InterfacePet
+  ): Promise<InterfacePet> {
 
-    const newPet = await Pet.create(pet);
+    const newPet = await Pet.create(body);
     return newPet;
   }
 
@@ -28,14 +14,14 @@ class PetRepository {
     return pets;
   }
 
-  async findOne(name: any, tutor: ObjectId) {
+  async findOne(name: string, tutor: string): Promise<InterfacePet> {
 
     const pet = await Pet.findOne({ name, tutor });
 
     return pet;
   }
 
-  async findById(petId: any) {
+  async findById(petId: string): Promise<InterfacePet> {
 
     const pet = await Pet.findById({ _id: petId });
 
@@ -44,7 +30,7 @@ class PetRepository {
 
   async update(
     petId: string,
-    updatedPetData: any
+    updatedPetData: InterfacePet
   ): Promise<InterfacePet> {
     const updatedPet = await Pet.findByIdAndUpdate(
       petId,

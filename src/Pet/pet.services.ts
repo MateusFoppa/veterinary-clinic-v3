@@ -1,35 +1,28 @@
 import TutorRepository from '../Tutor/repositories/tutor.repository';
 import PetRepository from './pet.repository';
+
 import { BadRequestError } from '../errors';
+import { Request } from 'express';
+import { InterfacePet } from './Pet';
 
 export class PetService {
   petRepository = PetRepository;
   tutorRepository = TutorRepository;
 
-  async createPet(petData: any, params: any): Promise<any> {
-    const {
-      name,
-      species,
-      carry,
-      weight,
-      date_of_birth
-    } = petData;
+  async createPet(request: Request): Promise<InterfacePet> {
+    const { body, params } = request;
+
     const { tutorId } = params;
     const tutor = await this.tutorRepository.findById(tutorId);
     if (!tutor) {
       throw new BadRequestError('Tutor not exist')
     }
-    if (await this.petRepository.findOne(name, tutorId)) {
+    if (await this.petRepository.findOne(body.name, params.tutorId)) {
       throw new BadRequestError('Pet name already registered');
     }
 
     const createdPet = await this.petRepository.create(
-      name,
-      species,
-      carry,
-      weight,
-      date_of_birth,
-      tutorId
+      body
     );
     const { _id } = createdPet;
 
@@ -40,8 +33,10 @@ export class PetService {
     return createdPet;
   }
 
-  async updatePet(petId: string, tutorId: string, updatedPetData: any): Promise<any> {
-    // Validation
+  async updatePet(request: Request): Promise<InterfacePet> {
+    const { body } = request;
+    const { tutorId, petId } = request.params;
+
     const tutor = await this.tutorRepository.findById(tutorId);
     if (!tutor) {
       throw new BadRequestError('Tutor not exist')
@@ -55,13 +50,14 @@ export class PetService {
     }
     const updatedPet = await this.petRepository.update(
       petId,
-      updatedPetData,
+      body,
     );
     return updatedPet;
   }
 
-  async deletePet(petId: string, tutorId: string) {
-    // Validation
+  async deletePet(request: Request): Promise<void> {
+    const { petId, tutorId } = request.params;
+
     const tutor = await this.tutorRepository.findById(tutorId);
     if (!tutor) {
       throw new BadRequestError('Tutor not exist')
