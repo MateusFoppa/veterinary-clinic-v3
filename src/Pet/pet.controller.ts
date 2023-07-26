@@ -2,24 +2,23 @@ import { Request, Response } from 'express';
 import { PetService } from './pet.services';
 
 export class PetController {
-  async createPet(request: Request, response: Response): Promise<void> {
+  static async createPet(request: Request, response: Response): Promise<void> {
 
-    const petService = new PetService;
-    const result = await petService.createPet(request);
+    const result = await PetService.createPet(request);
     response.status(200).json(result);
   }
 
-  async updatePet(request: Request, response: Response): Promise<void> {
+  static async updatePet(request: Request, response: Response): Promise<void> {
 
     const petService = new PetService();
-    const result = await petService.updatePet(request);
+    const result = await PetService.updatePet(request);
     response.status(200).json(result);
   }
 
-  async deletePet(request: Request, response: Response): Promise<void> {
+  static async deletePet(request: Request, response: Response): Promise<void> {
 
     const petService = new PetService();
-    const result = await petService.deletePet(request);
+    const result = await PetService.deletePet(request);
     response.status(204).json(result);
   }
 }

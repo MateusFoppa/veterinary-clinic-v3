@@ -8,14 +8,13 @@ import { createdPet } from '../validation/create.pet';
 
 const petRouter = express.Router();
 
-const petController = new PetController();
 
 petRouter
   .route('/:tutorId')
-  .post(authentication, validator(createdPet.required()), petController.createPet);
+  .post(authentication, validator(createdPet.required()), PetController.createPet);
 petRouter
   .route('/:petId/tutor/:tutorId')
-  .put(authentication, validator(createdPet), petController.updatePet)
-  .delete(authentication, petController.deletePet);
+  .put(authentication, validator(createdPet), PetController.updatePet)
+  .delete(authentication, PetController.deletePet);
 
 export default petRouter;

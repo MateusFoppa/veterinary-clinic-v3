@@ -1,7 +1,7 @@
 import { InterfacePet, Pet } from './Pet';
 
-class PetRepository {
-  async create(
+export class PetRepository {
+  static async create(
     body: InterfacePet
   ): Promise<InterfacePet> {
 
@@ -9,26 +9,26 @@ class PetRepository {
     return newPet;
   }
 
-  async findAll(): Promise<InterfacePet[]> {
+  static async findAll(): Promise<InterfacePet[]> {
     const pets = await Pet.find();
     return pets;
   }
 
-  async findOne(name: string, tutor: string): Promise<InterfacePet> {
+  static async findOne(name: string, tutor: string): Promise<InterfacePet> {
 
     const pet = await Pet.findOne({ name, tutor });
 
     return pet;
   }
 
-  async findById(petId: string): Promise<InterfacePet> {
+  static async findById(petId: string): Promise<InterfacePet> {
 
     const pet = await Pet.findById({ _id: petId });
 
     return pet;
   }
 
-  async update(
+  static async update(
     petId: string,
     updatedPetData: InterfacePet
   ): Promise<InterfacePet> {
@@ -40,9 +40,8 @@ class PetRepository {
     return updatedPet;
   }
 
-  async delete(petId: string): Promise<void> {
+  static async delete(petId: string): Promise<void> {
     await Pet.findByIdAndDelete(petId);
   }
 }
 
-export default new PetRepository();
