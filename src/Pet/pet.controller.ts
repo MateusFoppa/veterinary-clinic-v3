@@ -10,14 +10,12 @@ export class PetController {
 
   static async updatePet(request: Request, response: Response): Promise<void> {
 
-    const petService = new PetService();
     const result = await PetService.updatePet(request);
     response.status(200).json(result);
   }
 
   static async deletePet(request: Request, response: Response): Promise<void> {
 
-    const petService = new PetService();
     const result = await PetService.deletePet(request);
     response.status(204).json(result);
   }

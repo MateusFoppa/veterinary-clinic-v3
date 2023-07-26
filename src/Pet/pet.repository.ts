@@ -1,10 +1,9 @@
-import { InterfaceTutor } from 'src/Tutor/models/Tutor';
 import { InterfacePet, Pet } from './Pet';
 
 export class PetRepository {
   static async create(
-    body: any
-  ): Promise<any> {
+    body: InterfacePet
+  ): Promise<InterfacePet> {
     const newPet = await Pet.create(
       body
     );

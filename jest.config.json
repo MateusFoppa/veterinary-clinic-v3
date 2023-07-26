@@ -1,0 +1,11 @@
+{
+  "clearMocks": true,
+  "moduleNameMapper": {
+    "<rootDir>@config": "./src/config",
+    "<rootDir>@models": "./src/models",
+    "<rootDir>@controllers": "./src/controllers",
+    "<rootDir>@views": "./src/views"
+  },
+  "preset": "ts-jest",
+  "testEnvironment": "node"
+}

@@ -22,14 +22,14 @@ export class TutorRepository {
     return tutors;
   }
 
-  static async findOne(email: any): Promise<InterfaceTutor> {
+  static async findOne(email: string): Promise<InterfaceTutor> {
 
     const tutor = await Tutor.findOne({ email });
 
     return tutor;
   }
 
-  static async findById(tutorId: any): Promise<InterfaceTutor> {
+  static async findById(tutorId: string): Promise<InterfaceTutor> {
 
     const tutor = await Tutor.findById({ _id: tutorId });
 
@@ -38,7 +38,7 @@ export class TutorRepository {
 
   static async update(
     tutorId: string,
-    updatedTutorData: any
+    updatedTutorData: InterfaceTutor
   ): Promise<InterfaceTutor> {
     const updatedTutor = await Tutor.findByIdAndUpdate(
       tutorId,
